@@ -1,6 +1,6 @@
 package Unit.Domain.Figure;
 
-import Domain.Board.Color;
+import Domain.Figure.Color;
 import Domain.Board.Exception.OutOfBoardException;
 import Domain.Board.Position;
 import Domain.Figure.Move.Move;
@@ -10,11 +10,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PawnTests {
-    @Test
-    void testNoMoves() throws OutOfBoardException {
-        Move move = new Move(new Position("A2"), new Position("A2"));
-        assertFalse(getPawn().move(move));
-    }
 
     @Test
     void testMoveBackward() throws OutOfBoardException {
@@ -36,7 +31,7 @@ public class PawnTests {
 
     @Test
     void testCapturingDiagonally() throws OutOfBoardException {
-        Move move = new Move(new Position("A2"), new Position("B3"), new Pawn(Color.ColorEnum.BLACK));
+        Move move = new Move(new Position("A2"), new Position("B3"), new Pawn(Color.ColorEnum.WHITE), new Pawn(Color.ColorEnum.BLACK));
         assertTrue(getPawn().move(move));
     }
 

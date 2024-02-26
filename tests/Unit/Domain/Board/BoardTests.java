@@ -1,7 +1,7 @@
 package Unit.Domain.Board;
 
 import Domain.Board.Board;
-import Domain.Board.Color;
+import Domain.Figure.Color;
 import Domain.Board.Exception.OutOfBoardException;
 import Domain.Figure.Figure;
 

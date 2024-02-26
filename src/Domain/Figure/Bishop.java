@@ -1,7 +1,8 @@
 package Domain.Figure;
 
-import Domain.Board.Color;
 import Domain.Figure.Move.Move;
+import Domain.Figure.Move.MoveDiagonally;
+import Lib.Specification.ISpecification;
 
 public class Bishop extends Figure {
     public Bishop(Color.ColorEnum color) {
@@ -9,8 +10,9 @@ public class Bishop extends Figure {
     }
 
     @Override
-    public Boolean move(Move move) {
-        return Math.abs(move.getVerticalDistance() * move.getHorizontalDistance()) >= 1
-                && Math.abs(move.getVerticalDistance()) == Math.abs(move.getHorizontalDistance());
+    protected Boolean isSatisfied(Move move) {
+        ISpecification<Move> moves = new MoveDiagonally();
+
+        return moves.IsSatisfiedBy(move);
     }
 }

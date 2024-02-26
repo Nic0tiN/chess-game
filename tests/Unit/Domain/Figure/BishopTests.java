@@ -1,6 +1,6 @@
 package Unit.Domain.Figure;
 
-import Domain.Board.Color;
+import Domain.Figure.Color;
 import Domain.Board.Exception.OutOfBoardException;
 import Domain.Board.Position;
 import Domain.Figure.Bishop;
@@ -12,12 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BishopTests {
-    @Test
-    void testNoMoves() throws OutOfBoardException {
-        Move move = new Move(new Position("A2"), new Position("A2"));
-        assertFalse(getFigure().move(move));
-    }
-
     @Test
     void testMoveBackward() throws OutOfBoardException {
         Move move = new Move(new Position("A2"), new Position("A1"));

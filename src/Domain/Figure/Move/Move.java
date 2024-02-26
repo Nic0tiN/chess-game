@@ -6,6 +6,7 @@ import Domain.Figure.Figure;
 public final class Move {
     public final Position from;
     public final Position to;
+    public final Figure figureMoving;
     public final Figure figureAtDestination;
     private Boolean moveResult;
 
@@ -13,10 +14,12 @@ public final class Move {
         this.from = from;
         this.to = to;
         this.moveResult = false;
+        this.figureMoving = null;
         this.figureAtDestination = null;
     }
 
-    public Move(Position from, Position to, Figure figureAtDestination) {
+    public Move(Position from, Position to, Figure figureMoving, Figure figureAtDestination) {
+        this.figureMoving = figureMoving;
         this.from = from;
         this.to = to;
         this.figureAtDestination = figureAtDestination;
@@ -37,9 +40,5 @@ public final class Move {
 
     public int getHorizontalDistance() {
         return this.to.getHorizontal().ordinal() - this.from.getHorizontal().ordinal();
-    }
-
-    public Figure getFigureAtDestination() {
-        return figureAtDestination;
     }
 }

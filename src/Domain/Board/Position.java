@@ -2,6 +2,8 @@ package Domain.Board;
 
 import Domain.Board.Exception.OutOfBoardException;
 
+import java.util.Objects;
+
 public class Position {
     private final VERTICAL vertical;
     private final HORIZONTAL horizontal;
@@ -30,10 +32,10 @@ public class Position {
     };
 
     public enum HORIZONTAL {
-        A, B, C, D, E, F, G, H;
+        A, B, C, D, E, F, G, H
     }
     public enum VERTICAL {
-        ONE, TWO, THREE, FOUR, FIVE , SIX, SEVEN, EIGHT;
+        ONE, TWO, THREE, FOUR, FIVE , SIX, SEVEN, EIGHT
     }
 
     public Position(int index) throws OutOfBoardException {
@@ -72,10 +74,34 @@ public class Position {
                 VERTICAL.valueOf(Position.mapVertical[iV])
         );
     }
-    private static Position FromString(String position) throws OutOfBoardException {
+    private static Position FromString(String position) {
         String horizontal = position.substring(0, 1);
-        int vertical = Integer.valueOf(position.substring(1, 2));
+        int vertical = Integer.parseInt(position.substring(1, 2));
 
         return new Position(HORIZONTAL.valueOf(horizontal), VERTICAL.valueOf(Position.mapVertical[vertical]));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Position position = (Position) o;
+        return vertical == position.vertical && horizontal == position.horizontal;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vertical, horizontal);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s%s", horizontal.toString(), vertical.ordinal() + 1);
     }
 }

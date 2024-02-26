@@ -1,6 +1,5 @@
 package Domain.Figure;
 
-import Domain.Board.Color;
 import Domain.Figure.Move.*;
 import Lib.Specification.ISpecification;
 import Lib.Specification.NotSpecification;
@@ -11,7 +10,7 @@ public class King extends Figure {
     }
 
     @Override
-    public Boolean move(Move move) {
+    protected Boolean isSatisfied(Move move) {
         ISpecification<Move> kingMoves = new MoveDiagonally()
                 .Or(new MoveVertically())
                 .Or(new MoveHorizontally())

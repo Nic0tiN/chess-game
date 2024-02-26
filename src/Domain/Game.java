@@ -2,18 +2,24 @@ package Domain;
 
 import Domain.Board.*;
 import Domain.Board.Exception.OutOfBoardException;
+import Domain.Figure.Color;
 import Domain.Figure.Figure;
 import Domain.Exception.WrongMoveException;
 import Domain.Figure.Move.Move;
+import Domain.Rule.MovingRule;
+import Domain.Rule.PositionRule;
+import Domain.Rule.Rule;
+import Domain.Rule.TurnRule;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public final class Game {
-    private Board board;
-    private final Color.ColorEnum lastMove = Color.ColorEnum.WHITE;
-    private final List<Move> movesHistory;
+    private final Board board;
+    private Color.ColorEnum nextPlayingColor = Color.ColorEnum.WHITE;
+    private final List<Move> movesHistory; // Todo: Change to pattern Memento
+    private Rule rules;
 
     public Game() throws OutOfBoardException {
         this.board = new Board();
@@ -24,6 +30,11 @@ public final class Game {
 
     private void initialize() throws OutOfBoardException {
         this.board.initialize();
+        this.rules = Rule.link(
+                new PositionRule(),
+                new TurnRule(nextPlayingColor),
+                new MovingRule()
+        );
     }
 
     public Boolean Move(String fromPosition, String toPosition) throws OutOfBoardException, WrongMoveException
@@ -31,28 +42,24 @@ public final class Game {
         Position from = new Position(fromPosition);
         Position to = new Position(toPosition);
 
-        Optional<Figure> figureToMove = this.board.getFigureAtPosition(from);
-        if (figureToMove.isEmpty()) {
-            throw new WrongMoveException(String.format("No figures at position %s", fromPosition));
-        }
-
-        if (figureToMove.get().color != lastMove) {
-            throw new WrongMoveException("This is not your turn.");
-        }
-
         Move move;
-        if (this.board.getFigureAtPosition(to).isPresent()) {
-            move = new Move(from, to, this.board.getFigureAtPosition(to).get());
+        Optional<Figure> figureMoving = this.board.getFigureAtPosition(from);
+        Optional<Figure> figureTaken = this.board.getFigureAtPosition(to);
+
+        if (figureMoving.isPresent()) {
+            if (figureTaken.isPresent()) {
+                move = new Move(from, to, figureMoving.get(), figureTaken.get());
+            } else {
+                move = new Move(from, to, figureMoving.get(), null);
+            }
         } else {
             move = new Move(from, to);
         }
 
-        this.movesHistory.add(move);
-
-        figureToMove.get().move(move);
-
-        this.board.MoveFigureTo(to, figureToMove.get());
-        move.setMoveResult(true);
+        if (rules.handle(this.board, move)) {
+            move.setMoveResult(true);
+            this.movesHistory.add(move);
+        }
 
         return move.getMoveResult();
     }

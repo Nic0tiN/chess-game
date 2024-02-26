@@ -1,7 +1,9 @@
 package Domain.Figure;
 
-import Domain.Board.Color;
 import Domain.Figure.Move.Move;
+import Domain.Figure.Move.MoveHorizontally;
+import Domain.Figure.Move.MoveVertically;
+import Lib.Specification.ISpecification;
 
 public class Rook extends Figure {
     public Rook(Color.ColorEnum color) {
@@ -9,8 +11,10 @@ public class Rook extends Figure {
     }
 
     @Override
-    public Boolean move(Move move) {
-        return (Math.abs(move.getHorizontalDistance()) == 1 || Math.abs(move.getVerticalDistance()) == 1)
-                && Math.abs(move.getVerticalDistance() * move.getHorizontalDistance()) == 0;
+    protected Boolean isSatisfied(Move move) {
+        ISpecification<Move> moves = (new MoveHorizontally())
+                .Or(new MoveVertically());
+
+        return moves.IsSatisfiedBy(move);
     }
 }

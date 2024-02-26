@@ -53,7 +53,11 @@ public class Board {
     }
 
     public Optional<Figure> getFigureAtPosition(Position position) {
-        return Optional.ofNullable(this.board[position.getHorizontal().ordinal()][position.getVertical().ordinal()]);
+        return this.getPosition(position.getHorizontal().ordinal(), position.getVertical().ordinal());
+    }
+
+    public Optional<Figure> getPosition(int horizontal, int vertical) {
+        return Optional.ofNullable(this.board[horizontal][vertical]);
     }
 
     public void MoveFigureTo(Position position, Figure figure) {

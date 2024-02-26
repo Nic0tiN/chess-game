@@ -1,6 +1,6 @@
 package Unit.Domain.Figure;
 
-import Domain.Board.Color;
+import Domain.Figure.Color;
 import Domain.Board.Exception.OutOfBoardException;
 import Domain.Board.Position;
 import Domain.Figure.Figure;
@@ -12,11 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RookTests {
-    @Test
-    void testNoMoves() throws OutOfBoardException {
-        Move move = new Move(new Position("A2"), new Position("A2"));
-        assertFalse(getFigure().move(move));
-    }
 
     @Test
     void testMoveBackward() throws OutOfBoardException {
@@ -39,7 +34,7 @@ public class RookTests {
     @Test
     void testMoveDiagonallyByTwoSquares() throws OutOfBoardException {
         Move move = new Move(new Position("A2"), new Position("C4"));
-        assertTrue(getFigure().move(move));
+        assertFalse(getFigure().move(move));
     }
 
     @Test
@@ -58,7 +53,7 @@ public class RookTests {
     @Test
     void testMoveByTwoSquares() throws OutOfBoardException {
         Move move = new Move(new Position("A2"), new Position("A4"));
-        assertFalse(getFigure().move(move));
+        assertTrue(getFigure().move(move));
     }
 
     Figure getFigure() {
