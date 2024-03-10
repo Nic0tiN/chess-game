@@ -2,21 +2,21 @@ package Domain.Rule;
 
 import Domain.Board.Board;
 import Domain.Exception.WrongMoveException;
-import Domain.Figure.Move.Move;
+import Domain.Figure.Move.Movement;
 
 public class PositionRule extends Rule {
 
     @Override
-    public boolean handle(Board board, Move move) throws WrongMoveException {
+    public boolean handle(Board board, Movement movement) throws WrongMoveException {
 
-        if (move.from.equals(move.to)) {
+        if (movement.from.equals(movement.to)) {
             throw new WrongMoveException("You must choose a different position.");
         }
 
-        if (move.figureMoving == null) {
-            throw new WrongMoveException(String.format("No figures at position %s.", move.from));
+        if (movement.figureMoving == null) {
+            throw new WrongMoveException(String.format("No figures at position %s.", movement.from));
         }
 
-        return checkNext(board, move);
+        return checkNext(board, movement);
     }
 }

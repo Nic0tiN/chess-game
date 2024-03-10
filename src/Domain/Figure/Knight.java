@@ -9,9 +9,9 @@ public class Knight extends Figure {
     }
 
     @Override
-    protected Boolean isSatisfied(Move move) {
-        ISpecification<Move> knightMoves = new MoveLShape();
+    protected Boolean isSatisfied(Movement movement) {
+        ISpecification<Movement> knightMoves = new MoveLShape();
 
-        return knightMoves.IsSatisfiedBy(move);
+        return knightMoves.IsSatisfiedBy(movement);
     }
 }

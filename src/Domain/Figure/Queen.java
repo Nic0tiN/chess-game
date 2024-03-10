@@ -1,6 +1,6 @@
 package Domain.Figure;
 
-import Domain.Figure.Move.Move;
+import Domain.Figure.Move.Movement;
 import Domain.Figure.Move.MoveDiagonally;
 import Domain.Figure.Move.MoveHorizontally;
 import Domain.Figure.Move.MoveVertically;
@@ -12,11 +12,11 @@ public class Queen extends Figure {
     }
 
     @Override
-    protected Boolean isSatisfied(Move move) {
-        ISpecification<Move> moves = (new MoveDiagonally())
+    protected Boolean isSatisfied(Movement movement) {
+        ISpecification<Movement> moves = (new MoveDiagonally())
                 .Or(new MoveVertically())
                 .Or(new MoveHorizontally());
 
-        return moves.IsSatisfiedBy(move);
+        return moves.IsSatisfiedBy(movement);
     }
 }

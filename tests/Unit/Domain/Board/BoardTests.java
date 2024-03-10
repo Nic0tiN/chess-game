@@ -47,6 +47,12 @@ public class BoardTests {
         assertTrue(board.getFigureAtPosition(new Position("D4")).isEmpty());
     }
 
+    @Test
+    void testGetPositionsWithFigures() throws OutOfBoardException {
+        Board board = this.getBoard();
+        assertEquals(16, board.getPositionsWithFigures(Color.ColorEnum.WHITE).size());
+    }
+
     Board getBoard() throws OutOfBoardException {
         Board board = new Board();
         board.initialize();

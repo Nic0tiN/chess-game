@@ -11,7 +11,7 @@ public class HorizontalMovementStrategy implements IMovementStrategy {
         boolean reverted = hToOrdinal < hFromOrdinal;
         List<Position> positions = new ArrayList<>();
 
-        int ordinalPosition = Position.SIZE * (vFromOrdinal + 1) - (Position.SIZE - (hFromOrdinal + 1));
+        int ordinalPosition = Position.ordinalFromIndex(vFromOrdinal, hFromOrdinal);
         if (reverted) {
             for (int i = hFromOrdinal; i > hToOrdinal; i--) {
                 positions.add(new Position(--ordinalPosition));

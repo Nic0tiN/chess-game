@@ -1,6 +1,6 @@
 package Domain.Figure;
 
-import Domain.Figure.Move.Move;
+import Domain.Figure.Move.Movement;
 import Domain.Figure.Move.MoveHorizontally;
 import Domain.Figure.Move.MoveVertically;
 import Lib.Specification.ISpecification;
@@ -11,10 +11,10 @@ public class Rook extends Figure {
     }
 
     @Override
-    protected Boolean isSatisfied(Move move) {
-        ISpecification<Move> moves = (new MoveHorizontally())
+    protected Boolean isSatisfied(Movement movement) {
+        ISpecification<Movement> moves = (new MoveHorizontally())
                 .Or(new MoveVertically());
 
-        return moves.IsSatisfiedBy(move);
+        return moves.IsSatisfiedBy(movement);
     }
 }

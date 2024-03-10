@@ -4,7 +4,7 @@ import Domain.Figure.Color;
 import Domain.Board.Exception.OutOfBoardException;
 import Domain.Board.Position;
 import Domain.Figure.Figure;
-import Domain.Figure.Move.Move;
+import Domain.Figure.Move.Movement;
 import Domain.Figure.Rook;
 import org.junit.jupiter.api.Test;
 
@@ -15,45 +15,45 @@ public class RookTests {
 
     @Test
     void testMoveBackward() throws OutOfBoardException {
-        Move move = new Move(new Position("A2"), new Position("A1"));
-        assertTrue(getFigure().move(move));
+        Movement movement = new Movement(new Position("A2"), new Position("A1"));
+        assertTrue(getFigure().move(movement));
     }
 
     @Test
     void testMoveHorizontally() throws OutOfBoardException {
-        Move move = new Move(new Position("A2"), new Position("B2"));
-        assertTrue(getFigure().move(move));
+        Movement movement = new Movement(new Position("A2"), new Position("B2"));
+        assertTrue(getFigure().move(movement));
     }
 
     @Test
     void testMoveDiagonally() throws OutOfBoardException {
-        Move move = new Move(new Position("A2"), new Position("B3"));
-        assertFalse(getFigure().move(move));
+        Movement movement = new Movement(new Position("A2"), new Position("B3"));
+        assertFalse(getFigure().move(movement));
     }
 
     @Test
     void testMoveDiagonallyByTwoSquares() throws OutOfBoardException {
-        Move move = new Move(new Position("A2"), new Position("C4"));
-        assertFalse(getFigure().move(move));
+        Movement movement = new Movement(new Position("A2"), new Position("C4"));
+        assertFalse(getFigure().move(movement));
     }
 
     @Test
     void testMoveLShape() throws OutOfBoardException {
-        Move move = new Move(new Position("A2"), new Position("B4"));
-        assertFalse(getFigure().move(move));
+        Movement movement = new Movement(new Position("A2"), new Position("B4"));
+        assertFalse(getFigure().move(movement));
     }
 
 
     @Test
     void testMoveByOneSquare() throws OutOfBoardException {
-        Move move = new Move(new Position("A2"), new Position("A3"));
-        assertTrue(getFigure().move(move));
+        Movement movement = new Movement(new Position("A2"), new Position("A3"));
+        assertTrue(getFigure().move(movement));
     }
 
     @Test
     void testMoveByTwoSquares() throws OutOfBoardException {
-        Move move = new Move(new Position("A2"), new Position("A4"));
-        assertTrue(getFigure().move(move));
+        Movement movement = new Movement(new Position("A2"), new Position("A4"));
+        assertTrue(getFigure().move(movement));
     }
 
     Figure getFigure() {

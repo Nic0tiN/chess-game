@@ -3,14 +3,14 @@ package Domain.Figure.Move;
 import Domain.Board.Position;
 import Domain.Figure.Figure;
 
-public final class Move {
+public final class Movement {
     public final Position from;
     public final Position to;
     public final Figure figureMoving;
     public final Figure figureAtDestination;
     private Boolean moveResult;
 
-    public Move(Position from, Position to) {
+    public Movement(Position from, Position to) {
         this.from = from;
         this.to = to;
         this.moveResult = false;
@@ -18,7 +18,7 @@ public final class Move {
         this.figureAtDestination = null;
     }
 
-    public Move(Position from, Position to, Figure figureMoving, Figure figureAtDestination) {
+    public Movement(Position from, Position to, Figure figureMoving, Figure figureAtDestination) {
         this.figureMoving = figureMoving;
         this.from = from;
         this.to = to;

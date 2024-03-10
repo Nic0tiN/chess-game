@@ -1,6 +1,6 @@
 package Domain.Figure;
 
-import Domain.Figure.Move.Move;
+import Domain.Figure.Move.Movement;
 import Domain.Figure.Move.MoveDiagonallyForward;
 import Domain.Figure.Move.MoveVerticallyForward;
 import Lib.Specification.ISpecification;
@@ -11,13 +11,13 @@ public class Pawn extends Figure {
     }
 
     @Override
-    protected Boolean isSatisfied(Move move) {
-        ISpecification<Move> pawnMoves = (new MoveVerticallyForward((this.getCountMoves() == 0) ? 2 : 1));
+    protected Boolean isSatisfied(Movement movement) {
+        ISpecification<Movement> pawnMoves = (new MoveVerticallyForward((this.getCountMoves() == 0) ? 2 : 1));
 
-        if (move.figureAtDestination != null) { // Attack
+        if (movement.figureAtDestination != null) { // Attack
             pawnMoves = pawnMoves.Or(new MoveDiagonallyForward());
         }
 
-        return pawnMoves.IsSatisfiedBy(move);
+        return pawnMoves.IsSatisfiedBy(movement);
     }
 }

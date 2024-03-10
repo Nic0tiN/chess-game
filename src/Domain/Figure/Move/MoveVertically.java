@@ -2,7 +2,7 @@ package Domain.Figure.Move;
 
 public class MoveVertically extends MoveSpecification {
     @Override
-    public Boolean IsSatisfiedBy(Move move) {
-        return (new MoveVerticallyForward()).Or(new MoveVerticallyBackward()).IsSatisfiedBy(move);
+    public Boolean IsSatisfiedBy(Movement movement) {
+        return (new MoveVerticallyForward()).Or(new MoveVerticallyBackward()).IsSatisfiedBy(movement);
     }
 }

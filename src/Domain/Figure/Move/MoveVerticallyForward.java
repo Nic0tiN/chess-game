@@ -9,12 +9,12 @@ public class MoveVerticallyForward extends MoveForward {
     }
 
     @Override
-    public Boolean IsSatisfiedBy(Move move) {
+    public Boolean IsSatisfiedBy(Movement movement) {
         if (maxSquare > 0) {
-            return move.getHorizontalDistance() == 0 && this.verticalDistance(move) > 0
-                    && this.verticalDistance(move) <= maxSquare;
+            return movement.getHorizontalDistance() == 0 && this.verticalDistance(movement) > 0
+                    && this.verticalDistance(movement) <= maxSquare;
         }
 
-        return move.getHorizontalDistance() == 0 && this.verticalDistance(move) > 0;
+        return movement.getHorizontalDistance() == 0 && this.verticalDistance(movement) > 0;
     }
 }

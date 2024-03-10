@@ -5,8 +5,8 @@ public class MoveOverOneSquare extends MoveSpecification {
     public MoveOverOneSquare() {}
 
     @Override
-    public Boolean IsSatisfiedBy(Move move) {
+    public Boolean IsSatisfiedBy(Movement movement) {
         int maxSquares = 1;
-        return Math.abs(move.getVerticalDistance()) > maxSquares || Math.abs(move.getHorizontalDistance()) > maxSquares;
+        return Math.abs(movement.getVerticalDistance()) > maxSquares || Math.abs(movement.getHorizontalDistance()) > maxSquares;
     }
 }

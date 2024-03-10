@@ -1,7 +1,9 @@
 package Domain.Board;
 
 import Domain.Board.Exception.OutOfBoardException;
+import Domain.Exception.WrongMoveException;
 import Domain.Figure.*;
+import Domain.Figure.Move.Movement;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -30,8 +32,8 @@ public class Board {
         this.figures.add(new Rook(Color.ColorEnum.BLACK));
         this.figures.add(new Knight(Color.ColorEnum.BLACK));
         this.figures.add(new Bishop(Color.ColorEnum.BLACK));
-        this.figures.add(new Queen(Color.ColorEnum.BLACK));
         this.figures.add(new King(Color.ColorEnum.BLACK));
+        this.figures.add(new Queen(Color.ColorEnum.BLACK));
         this.figures.add(new Bishop(Color.ColorEnum.BLACK));
         this.figures.add(new Knight(Color.ColorEnum.BLACK));
         this.figures.add(new Rook(Color.ColorEnum.BLACK));
@@ -44,7 +46,7 @@ public class Board {
         int iPosition;
         for (int i = 0; i < this.figures.size(); i++) {
             iPosition = i;
-            if (iPosition >= 16) {
+            if (iPosition >= (SIZE + SIZE)) {
                 iPosition = (SIZE * SIZE) - iPosition + (SIZE + SIZE) - 1;
             }
             Position position = new Position(iPosition + 1);
@@ -60,7 +62,28 @@ public class Board {
         return Optional.ofNullable(this.board[horizontal][vertical]);
     }
 
-    public void MoveFigureTo(Position position, Figure figure) {
-        this.board[position.getHorizontal().ordinal()][position.getVertical().ordinal()] = figure;
+    public void MoveFigureTo(Position from, Position to, Figure figure) throws WrongMoveException {
+        if (!figure.move(new Movement(from, to, figure, this.board[to.getHorizontal().ordinal()][to.getVertical().ordinal()]))) {
+            throw new WrongMoveException("You can't move " + from + " to " + to);
+        }
+        this.board[from.getHorizontal().ordinal()][from.getVertical().ordinal()] = null;
+        this.board[to.getHorizontal().ordinal()][to.getVertical().ordinal()] = figure;
+    }
+
+    public ArrayList<Position> getPositionsWithFigures(Color.ColorEnum color) throws OutOfBoardException {
+        ArrayList<Position> positions = new ArrayList<>();
+        for(int i = 0; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[i].length; j++) {
+                if (this.board[i][j] != null && this.board[i][j].color.equals(color)) {
+                    positions.add(new Position(i, j));
+                }
+            }
+        }
+
+        return positions;
+    }
+
+    public Figure[][] getBoard() {
+        return board;
     }
 }

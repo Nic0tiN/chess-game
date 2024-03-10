@@ -10,12 +10,11 @@ public class King extends Figure {
     }
 
     @Override
-    protected Boolean isSatisfied(Move move) {
-        ISpecification<Move> kingMoves = new MoveDiagonally()
-                .Or(new MoveVertically())
-                .Or(new MoveHorizontally())
-                .And(new NotSpecification<>(new MoveOverOneSquare()));
+    protected Boolean isSatisfied(Movement movement) {
+        ISpecification<Movement> kingMoves = new NotSpecification<>(new MoveOverOneSquare())
+                .And(new MoveDiagonally().Or(new MoveVertically()))
+                .Or(new MoveHorizontally((this.getCountMoves() > 0) ? 1 : 2));
 
-        return kingMoves.IsSatisfiedBy(move);
+       return kingMoves.IsSatisfiedBy(movement);
     }
 }

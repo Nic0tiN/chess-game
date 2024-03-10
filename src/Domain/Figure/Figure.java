@@ -1,9 +1,11 @@
 package Domain.Figure;
 
-import Domain.Figure.Move.Move;
+import Domain.Figure.Move.Movement;
+
+import java.util.Objects;
 
 abstract public class Figure {
-    abstract protected Boolean isSatisfied(Move move);
+    abstract protected Boolean isSatisfied(Movement movement);
 
     public final Color.ColorEnum color;
     public final FigureEnum figure;
@@ -18,8 +20,8 @@ abstract public class Figure {
         this.color = color;
     }
 
-    public Boolean move(Move move) {
-        if (this.isSatisfied(move)) {
+    public Boolean move(Movement movement) {
+        if (this.isSatisfied(movement)) {
             this.countMoves++;
 
             return true;
@@ -30,5 +32,22 @@ abstract public class Figure {
 
     public int getCountMoves() {
         return countMoves;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Figure figure1 = (Figure) o;
+        return color == figure1.color && figure == figure1.figure;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, figure);
     }
 }

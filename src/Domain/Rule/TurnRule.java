@@ -3,7 +3,7 @@ package Domain.Rule;
 import Domain.Board.Board;
 import Domain.Figure.Color;
 import Domain.Exception.WrongMoveException;
-import Domain.Figure.Move.Move;
+import Domain.Figure.Move.Movement;
 
 public class TurnRule extends Rule {
     private Color.ColorEnum nextMovingColor;
@@ -13,12 +13,12 @@ public class TurnRule extends Rule {
     }
 
     @Override
-    public boolean handle(Board board, Move move) throws WrongMoveException {
-        if (move.figureMoving != null && move.figureMoving.color != nextMovingColor) {
+    public boolean handle(Board board, Movement movement) throws WrongMoveException {
+        if (movement.figureMoving != null && movement.figureMoving.color != nextMovingColor) {
             throw new WrongMoveException("It is not your turn.");
         }
 
-        if (checkNext(board, move)) {
+        if (checkNext(board, movement)) {
             switch (nextMovingColor) {
                 case WHITE -> nextMovingColor = Color.ColorEnum.BLACK;
                 case BLACK -> nextMovingColor = Color.ColorEnum.WHITE;

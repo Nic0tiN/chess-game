@@ -2,7 +2,7 @@ package Domain.Figure.Move;
 
 import Lib.Specification.CompositeSpecification;
 
-abstract public class MoveSpecification extends CompositeSpecification<Move> {
+abstract public class MoveSpecification extends CompositeSpecification<Movement> {
     @Override
-    abstract public Boolean IsSatisfiedBy(Move move);
+    abstract public Boolean IsSatisfiedBy(Movement movement);
 }

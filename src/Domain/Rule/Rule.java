@@ -2,12 +2,12 @@ package Domain.Rule;
 
 import Domain.Board.Board;
 import Domain.Exception.WrongMoveException;
-import Domain.Figure.Move.Move;
+import Domain.Figure.Move.Movement;
 
 public abstract class Rule {
     private Rule next = null;
 
-    abstract public boolean handle(Board board, Move move) throws WrongMoveException;
+    abstract public boolean handle(Board board, Movement movement) throws WrongMoveException;
 
     public static Rule link(Rule first, Rule... chain) {
         Rule head = first;
@@ -19,11 +19,11 @@ public abstract class Rule {
         return first;
     }
 
-    protected boolean checkNext(Board board, Move move) throws WrongMoveException {
+    protected boolean checkNext(Board board, Movement movement) throws WrongMoveException {
         if (next == null) {
             return true;
         }
 
-        return next.handle(board, move);
+        return next.handle(board, movement);
     }
 }

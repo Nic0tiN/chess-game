@@ -5,11 +5,8 @@ import Domain.Board.Exception.OutOfBoardException;
 import Domain.Figure.Color;
 import Domain.Figure.Figure;
 import Domain.Exception.WrongMoveException;
-import Domain.Figure.Move.Move;
-import Domain.Rule.MovingRule;
-import Domain.Rule.PositionRule;
-import Domain.Rule.Rule;
-import Domain.Rule.TurnRule;
+import Domain.Figure.Move.Movement;
+import Domain.Rule.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +15,7 @@ import java.util.Optional;
 public final class Game {
     private final Board board;
     private Color.ColorEnum nextPlayingColor = Color.ColorEnum.WHITE;
-    private final List<Move> movesHistory; // Todo: Change to pattern Memento
+    private final List<Movement> movesHistory; // Todo: Change to pattern Memento
     private Rule rules;
 
     public Game() throws OutOfBoardException {
@@ -33,6 +30,7 @@ public final class Game {
         this.rules = Rule.link(
                 new PositionRule(),
                 new TurnRule(nextPlayingColor),
+                new CastlingRule(),
                 new MovingRule()
         );
     }
@@ -42,25 +40,29 @@ public final class Game {
         Position from = new Position(fromPosition);
         Position to = new Position(toPosition);
 
-        Move move;
+        Movement movement;
         Optional<Figure> figureMoving = this.board.getFigureAtPosition(from);
         Optional<Figure> figureTaken = this.board.getFigureAtPosition(to);
 
         if (figureMoving.isPresent()) {
             if (figureTaken.isPresent()) {
-                move = new Move(from, to, figureMoving.get(), figureTaken.get());
+                movement = new Movement(from, to, figureMoving.get(), figureTaken.get());
             } else {
-                move = new Move(from, to, figureMoving.get(), null);
+                movement = new Movement(from, to, figureMoving.get(), null);
             }
         } else {
-            move = new Move(from, to);
+            movement = new Movement(from, to);
         }
 
-        if (rules.handle(this.board, move)) {
-            move.setMoveResult(true);
-            this.movesHistory.add(move);
+        if (rules.handle(this.board, movement)) {
+            movement.setMoveResult(true);
+            this.movesHistory.add(movement);
         }
 
-        return move.getMoveResult();
+        return movement.getMoveResult();
+    }
+
+    public Figure[][] getBoard() {
+        return this.board.getBoard();
     }
 }

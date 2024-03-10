@@ -1,6 +1,6 @@
 package Domain.Figure;
 
-import Domain.Figure.Move.Move;
+import Domain.Figure.Move.Movement;
 import Domain.Figure.Move.MoveDiagonally;
 import Lib.Specification.ISpecification;
 
@@ -10,9 +10,9 @@ public class Bishop extends Figure {
     }
 
     @Override
-    protected Boolean isSatisfied(Move move) {
-        ISpecification<Move> moves = new MoveDiagonally();
+    protected Boolean isSatisfied(Movement movement) {
+        ISpecification<Movement> moves = new MoveDiagonally();
 
-        return moves.IsSatisfiedBy(move);
+        return moves.IsSatisfiedBy(movement);
     }
 }

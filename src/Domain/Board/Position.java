@@ -43,6 +43,13 @@ public class Position {
         this.horizontal = position.horizontal;
         this.vertical = position.vertical;
     }
+    public Position(int indexHorizontal, int indexVertical) throws OutOfBoardException {
+        int ordinalPosition = Position.ordinalFromIndex(indexVertical, indexHorizontal);
+        Position position = Position.FromOrdinal(ordinalPosition);
+        this.horizontal = position.horizontal;
+        this.vertical = position.vertical;
+    }
+
     public Position(String strPosition) throws OutOfBoardException {
         Position position = Position.FromString(strPosition);
         this.horizontal = position.horizontal;
@@ -79,6 +86,9 @@ public class Position {
         int vertical = Integer.parseInt(position.substring(1, 2));
 
         return new Position(HORIZONTAL.valueOf(horizontal), VERTICAL.valueOf(Position.mapVertical[vertical]));
+    }
+    public static int ordinalFromIndex(int vertical, int horizontal) {
+        return Position.SIZE * (vertical + 1) - (Position.SIZE - (horizontal + 1));
     }
 
     @Override

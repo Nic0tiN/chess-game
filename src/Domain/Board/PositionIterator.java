@@ -19,7 +19,7 @@ public class PositionIterator implements Iterable<Position>, Iterator<Position> 
 
     private void loadPath() throws OutOfBoardException {
         MoveSpecification movement;
-        Move move = new Move(from, to);
+        Movement move = new Movement(from, to);
         IMovementStrategy strategy = null;
 
         movement = new MoveDiagonally();
@@ -34,6 +34,11 @@ public class PositionIterator implements Iterable<Position>, Iterator<Position> 
             movement = new MoveVertically();
             if (movement.IsSatisfiedBy(move)) {
                 strategy = new VerticalMovementStrategy();
+            }
+
+            movement = new MoveLShape();
+            if (movement.IsSatisfiedBy(move)) {
+                strategy = new LShapeMovementStrategy();
             }
         }
 
