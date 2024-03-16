@@ -62,12 +62,20 @@ public class Board {
         return Optional.ofNullable(this.board[horizontal][vertical]);
     }
 
-    public void MoveFigureTo(Position from, Position to, Figure figure) throws WrongMoveException {
-        if (!figure.move(new Movement(from, to, figure, this.board[to.getHorizontal().ordinal()][to.getVertical().ordinal()]))) {
-            throw new WrongMoveException("You can't move " + from + " to " + to);
+    public void MoveFigureTo(Movement movement) throws WrongMoveException {
+        if (!movement.figureMoving.move(movement)) {
+            throw new WrongMoveException("You can't move from " + movement.from + " to " + movement.to);
         }
-        this.board[from.getHorizontal().ordinal()][from.getVertical().ordinal()] = null;
-        this.board[to.getHorizontal().ordinal()][to.getVertical().ordinal()] = figure;
+        this.ClearPosition(movement.from);
+        this.board[movement.to.getHorizontal().ordinal()][movement.to.getVertical().ordinal()] = movement.figureMoving;
+    }
+
+    public void MoveFigureTo(Position from, Position to, Figure figure) throws WrongMoveException {
+        this.MoveFigureTo(new Movement(from, to, figure, this.board[to.getHorizontal().ordinal()][to.getVertical().ordinal()]));
+    }
+
+    public void ClearPosition(Position position) {
+        this.board[position.getHorizontal().ordinal()][position.getVertical().ordinal()] = null;
     }
 
     public ArrayList<Position> getPositionsWithFigures(Color.ColorEnum color) throws OutOfBoardException {

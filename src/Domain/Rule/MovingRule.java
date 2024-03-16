@@ -29,7 +29,7 @@ public class MovingRule extends Rule {
         }
 
         if (checkNext(board, movement)) {
-            board.MoveFigureTo(movement.from, movement.to, movement.figureMoving); // Do move
+            board.MoveFigureTo(movement); // Do move
 
             return true;
         }

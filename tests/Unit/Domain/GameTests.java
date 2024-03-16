@@ -52,6 +52,15 @@ public class GameTests {
         WrongMoveException exception = assertThrows(WrongMoveException.class, () -> game.Move("D1", "F3"));
         assertTrue(exception.getMessage().contains("You can not move over figures."));
     }
+    @Test
+    void enPassantTest() throws OutOfBoardException, WrongMoveException {
+        Game game = this.getGame();
+        game.Move("A2", "A4");
+        game.Move("C7", "C6");
+        game.Move("A4", "A5");
+        game.Move("B7", "B5");
+        assertTrue(game.Move("A5", "B6"));
+    }
 
     private Game getGame() throws OutOfBoardException {
         return new Game();

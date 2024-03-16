@@ -34,6 +34,11 @@ public class PawnTests {
         Movement movement = new Movement(new Position("A2"), new Position("B3"), new Pawn(Color.ColorEnum.WHITE), new Pawn(Color.ColorEnum.BLACK));
         assertTrue(getPawn().move(movement));
     }
+    @Test
+    void testCantCaptureForward() throws OutOfBoardException {
+        Movement movement = new Movement(new Position("A4"), new Position("A5"), new Pawn(Color.ColorEnum.WHITE), new Pawn(Color.ColorEnum.BLACK));
+        assertFalse(getPawn().move(movement));
+    }
 
     @Test
     void testMoveDiagonallyByTwoSquares() throws OutOfBoardException {

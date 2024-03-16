@@ -14,7 +14,6 @@ import java.util.Optional;
 
 public final class Game {
     private final Board board;
-    private Color.ColorEnum nextPlayingColor = Color.ColorEnum.WHITE;
     private final List<Movement> movesHistory; // Todo: Change to pattern Memento
     private Rule rules;
 
@@ -29,8 +28,9 @@ public final class Game {
         this.board.initialize();
         this.rules = Rule.link(
                 new PositionRule(),
-                new TurnRule(nextPlayingColor),
+                new TurnRule(Color.ColorEnum.WHITE),
                 new CastlingRule(),
+                new EnPassantRule(this.movesHistory),
                 new MovingRule()
         );
     }

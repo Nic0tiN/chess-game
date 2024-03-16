@@ -8,7 +8,6 @@ import Domain.Exception.WrongMoveException;
 import Domain.Figure.Color;
 import Domain.Figure.Figure;
 import Domain.Figure.Move.Movement;
-import Domain.Figure.Rook;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -82,7 +81,7 @@ public class CastlingRule extends Rule {
                 checkNext(board, movement);
 
                 // Rook move
-                board.MoveFigureTo(rookPosition, rookDestination, rook.get());
+                board.MoveFigureTo(new Movement(rookPosition, rookDestination, rook.get(), null));
 
                 return true;
             } catch (OutOfBoardException ignored) {}

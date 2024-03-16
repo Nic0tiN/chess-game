@@ -8,8 +8,8 @@ import Domain.Figure.Move.Movement;
 public class TurnRule extends Rule {
     private Color.ColorEnum nextMovingColor;
 
-    public TurnRule (Color.ColorEnum nextPlayingColor) {
-        this.nextMovingColor = nextPlayingColor;
+    public TurnRule (Color.ColorEnum firstPlayingColor) {
+        this.nextMovingColor = firstPlayingColor;
     }
 
     @Override
