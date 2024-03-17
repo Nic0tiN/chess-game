@@ -1,0 +1,4 @@
+Built-by: Nic0tiN
+Name: Game-Chess
+Manifest-Version: 1.0.0
+Automatic-Module-Name: com.clicktic.gamechess
