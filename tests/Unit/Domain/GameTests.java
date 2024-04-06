@@ -52,6 +52,44 @@ public class GameTests {
         WrongMoveException exception = assertThrows(WrongMoveException.class, () -> game.Move("D1", "F3"));
         assertTrue(exception.getMessage().contains("You can not move over figures."));
     }
+
+    @Test
+    void checkmateTest() throws OutOfBoardException, WrongMoveException {
+        Game game = this.getGame();
+        game.Move("F2", "F3");
+        game.Move("E7", "E5");
+        game.Move("G2", "G4");
+        game.Move("D8", "H4");
+
+        WrongMoveException exception = assertThrows(WrongMoveException.class, () -> game.Move("G1", "H3"));
+        assertTrue(exception.getMessage().equals("Checkmate !"));
+    }
+
+    @Test
+    void escapeCheckmateTest() throws OutOfBoardException, WrongMoveException {
+        Game game = this.getGame();
+        game.Move("D2", "D4");
+        game.Move("F7", "F5");
+        game.Move("C1", "G5");
+        game.Move("H7", "H6");
+        game.Move("G5", "F4");
+        game.Move("G7", "G5");
+        game.Move("F4", "G3");
+        game.Move("F5", "F4");
+        game.Move("E2", "E3");
+        game.Move("H6", "H5");
+        game.Move("F1", "D3");
+        game.Move("H8", "H6");
+        game.Move("D1", "H5"); // Check !
+
+        assertTrue(game.Move("H6", "H5")); // Out-of-check
+
+        game.Move("D3", "G6"); // Checkmate !
+
+        WrongMoveException exception = assertThrows(WrongMoveException.class, () -> game.Move("G8", "F6"));
+        assertTrue(exception.getMessage().equals("Checkmate !"));
+    }
+
     @Test
     void enPassantTest() throws OutOfBoardException, WrongMoveException {
         Game game = this.getGame();

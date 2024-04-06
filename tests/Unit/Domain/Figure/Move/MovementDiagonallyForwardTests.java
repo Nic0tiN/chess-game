@@ -65,6 +65,18 @@ public class MovementDiagonallyForwardTests {
         assertFalse(getSpec().IsSatisfiedBy(movement));
     }
 
+    @Test
+    void testMoveTwoSquaresForbidden() throws OutOfBoardException {
+        Movement movement = new Movement(new Position("F4"), new Position("D6"), new Pawn(Color.ColorEnum.WHITE), null);
+        assertFalse((new MoveDiagonallyForward(1)).IsSatisfiedBy(movement));
+    }
+
+    @Test
+    void testMoveTwoSquaresAuthorized() throws OutOfBoardException {
+        Movement movement = new Movement(new Position("F4"), new Position("D6"), new Pawn(Color.ColorEnum.WHITE), null);
+        assertTrue((new MoveDiagonallyForward(2)).IsSatisfiedBy(movement));
+    }
+
     MoveSpecification getSpec() {
         return new MoveDiagonallyForward();
     }

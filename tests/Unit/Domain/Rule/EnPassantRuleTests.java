@@ -23,10 +23,10 @@ public class EnPassantRuleTests
         Board board = new Board();
         board.initialize();
 
-        board.MoveFigureTo(new Position("B7"), new Position("B5"), new Pawn(Color.ColorEnum.BLACK));
-        board.MoveFigureTo(new Position("D2"), new Position("D3"), new Pawn(Color.ColorEnum.WHITE));
-        board.MoveFigureTo(new Position("B5"), new Position("B4"), new Pawn(Color.ColorEnum.BLACK));
-        board.MoveFigureTo(new Position("C2"), new Position("C4"), new Pawn(Color.ColorEnum.WHITE));
+        board.MoveFigureTo(new Position("B7"), new Position("B5"));
+        board.MoveFigureTo(new Position("D2"), new Position("D3"));
+        board.MoveFigureTo(new Position("B5"), new Position("B4"));
+        board.MoveFigureTo(new Position("C2"), new Position("C4"));
         assertTrue(rule.handle(board, new Movement(new Position("B4"), new Position("D3"), new Pawn(Color.ColorEnum.BLACK), null)));
     }
 

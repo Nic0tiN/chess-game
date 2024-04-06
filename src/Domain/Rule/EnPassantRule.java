@@ -29,6 +29,7 @@ public class EnPassantRule extends Rule {
                 && Math.abs(lastMovement.getVerticalDistance()) == 2
                 && movement.figureMoving != null
                 && movement.figureMoving.figure == Figure.FigureEnum.PAWN
+                && movement.figureAtDestination == null
                 && Math.abs(movement.getVerticalDistance()) == 1
                 && Math.abs(movement.getHorizontalDistance()) == 1
         ) {

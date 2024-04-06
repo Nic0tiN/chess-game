@@ -1,7 +1,6 @@
 package Domain.Figure.Move;
 
 public class MoveVerticallyForward extends MoveForward {
-    private int maxSquare = -1;
 
     public MoveVerticallyForward() {}
     public MoveVerticallyForward(int maxSquare) {

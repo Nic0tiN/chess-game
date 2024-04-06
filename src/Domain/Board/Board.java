@@ -70,8 +70,8 @@ public class Board {
         this.board[movement.to.getHorizontal().ordinal()][movement.to.getVertical().ordinal()] = movement.figureMoving;
     }
 
-    public void MoveFigureTo(Position from, Position to, Figure figure) throws WrongMoveException {
-        this.MoveFigureTo(new Movement(from, to, figure, this.board[to.getHorizontal().ordinal()][to.getVertical().ordinal()]));
+    public void MoveFigureTo(Position from, Position to) throws WrongMoveException {
+        this.MoveFigureTo(new Movement(from, to, this.board[from.getHorizontal().ordinal()][from.getVertical().ordinal()], this.board[to.getHorizontal().ordinal()][to.getVertical().ordinal()]));
     }
 
     public void ClearPosition(Position position) {

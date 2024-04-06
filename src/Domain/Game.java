@@ -1,10 +1,11 @@
 package Domain;
 
-import Domain.Board.*;
+import Domain.Board.Board;
 import Domain.Board.Exception.OutOfBoardException;
+import Domain.Board.Position;
+import Domain.Exception.WrongMoveException;
 import Domain.Figure.Color;
 import Domain.Figure.Figure;
-import Domain.Exception.WrongMoveException;
 import Domain.Figure.Move.Movement;
 import Domain.Rule.*;
 
@@ -29,6 +30,7 @@ public final class Game {
         this.rules = Rule.link(
                 new PositionRule(),
                 new TurnRule(Color.ColorEnum.WHITE),
+                new CheckmateRule(),
                 new CastlingRule(),
                 new EnPassantRule(this.movesHistory),
                 new MovingRule()
@@ -62,7 +64,10 @@ public final class Game {
         return movement.getMoveResult();
     }
 
-    public Figure[][] getBoard() {
+    public Board getBoard() {
+        return this.board;
+    }
+    public Figure[][] getFigures() {
         return this.board.getBoard();
     }
 }

@@ -15,7 +15,7 @@ public class Pawn extends Figure {
         ISpecification<Movement> pawnMoves = (new MoveVerticallyForward((this.getCountMoves() == 0) ? 2 : 1));
 
         if (movement.figureAtDestination != null) { // Attack
-            pawnMoves = new MoveDiagonallyForward();
+            pawnMoves = new MoveDiagonallyForward(1);
         }
 
         return pawnMoves.IsSatisfiedBy(movement);

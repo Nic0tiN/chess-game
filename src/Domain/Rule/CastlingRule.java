@@ -25,33 +25,27 @@ public class CastlingRule extends Rule {
             try {
                 if (playingColor.equals(Color.ColorEnum.WHITE)) {
                     positions = board.getPositionsWithFigures(Color.ColorEnum.BLACK);
-                    throughCheck = new Position(movement.from.getHorizontal().ordinal() + 1, movement.from.getVertical().ordinal());
                 } else {
                     positions = board.getPositionsWithFigures(Color.ColorEnum.WHITE);
+                }
+
+                if (movement.getHorizontalDistance() > 0) {
+                    throughCheck = new Position(movement.from.getHorizontal().ordinal() + 1, movement.from.getVertical().ordinal());
+                } else {
                     throughCheck = new Position(movement.from.getHorizontal().ordinal() - 1, movement.from.getVertical().ordinal());
                 }
 
                 // Is Out-of, through or into check ?
                 for (Position opponentPosition : positions) {
                     Figure figureOpponent = board.getFigureAtPosition(opponentPosition).get();
-                    if (figureOpponent.figure != Figure.FigureEnum.KNIGHT) {
-                        // Are we trying to move over figures ?
-                        for (Position position : new PositionIterator(movement.from, movement.to)) {
-                            if (board.getFigureAtPosition(position).isPresent()
-                                    && !board.getFigureAtPosition(position).get().equals(movement.figureAtDestination)
-                            ) {
-                                break;
-                            }
-                        }
-                    }
 
-                    if (figureOpponent.move(new Movement(opponentPosition, movement.from))) {
+                    if (this.isKingThreatenedBy(figureOpponent, new Movement(opponentPosition, movement.from, figureOpponent, movement.figureMoving), board)) {
                         throw new WrongMoveException("Can't castle out-of check.");
                     }
-                    if (figureOpponent.move(new Movement(opponentPosition, throughCheck))) {
+                    if (this.isKingThreatenedBy(figureOpponent, new Movement(opponentPosition, throughCheck, figureOpponent, movement.figureMoving), board)) {
                         throw new WrongMoveException("Can't castle through check.");
                     }
-                    if (figureOpponent.move(new Movement(opponentPosition, movement.to))) {
+                    if (this.isKingThreatenedBy(figureOpponent, new Movement(opponentPosition, movement.to, figureOpponent, movement.figureMoving), board)) {
                         throw new WrongMoveException("Can't castle into check.");
                     }
                 }
@@ -73,9 +67,6 @@ public class CastlingRule extends Rule {
                 if (rook.isEmpty() || rook.get().figure != Figure.FigureEnum.ROOK) {
                     throw new WrongMoveException("Can't castle if rook has moved");
                 }
-                if (board.getFigureAtPosition(rookDestination).isPresent()) {
-                    throw new WrongMoveException("Can't castle if another figure is placed at rook destination");
-                }
 
                 // King move
                 checkNext(board, movement);
@@ -88,5 +79,23 @@ public class CastlingRule extends Rule {
         }
 
         return checkNext(board, movement);
+    }
+
+    private Boolean isKingThreatenedBy(Figure opponent, Movement movement, Board board) {
+        if (opponent.move(movement)) {
+            for (Position position : new PositionIterator(movement.from, movement.to)) {
+                if (position.equals(movement.to)) {
+                    return true; // Opponent can reach destination and threaten king. Check before board as virtual movement is not reflected on board
+                }
+
+                if (board.getFigureAtPosition(position).isPresent()
+                        && !board.getFigureAtPosition(position).get().equals(movement.figureAtDestination)
+                ) {
+                    return false;
+                }
+            }
+        }
+
+        return false;
     }
 }
