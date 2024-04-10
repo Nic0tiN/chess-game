@@ -36,7 +36,7 @@ public class CheckmateRule extends Rule {
             // Is king threatened
             for (Position opponentPosition : opponentPositions) {
                 Figure figureOpponent = board.getFigureAtPosition(opponentPosition).get();
-
+                // NOTE : Should we consider when king position itself in check ? Or this may be another rule
                 if (this.isKingThreatenedBy(figureOpponent, new Movement(opponentPosition, playingKingPosition, figureOpponent, playingKingFigure), board)) {
                     if (movement.figureMoving.equals(playingKingFigure)) {
                         // Trying to get out-of-check
